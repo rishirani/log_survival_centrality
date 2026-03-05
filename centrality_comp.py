@@ -216,6 +216,7 @@ ax1.axis("off")
 ax1.set_title("Asymmetric Barbell Topology", fontsize=14)
 
 plt.tight_layout()
+plt.savefig("./topology.png", bbox_inches='tight',dpi=400)
 plt.show()
 
 
@@ -223,7 +224,7 @@ plt.show()
 # FIGURE 2
 # ============================================================
 
-fig2, axes = plt.subplots(2, 3, figsize=(9, 6))
+fig2, axes = plt.subplots(2, 3, figsize=(15, 10))
 axes = axes.flatten()
 
 def draw_heat_panel(ax, values, title):
@@ -264,5 +265,5 @@ fig2.subplots_adjust(
     hspace=0.35,
     wspace=0.30
 )
-
+plt.savefig("./centrality_comparison.png", bbox_inches='tight',dpi=400)
 plt.show()

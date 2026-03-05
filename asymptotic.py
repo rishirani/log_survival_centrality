@@ -272,14 +272,14 @@ if __name__ == "__main__":
             neglog_deltas,
             '.',
             markersize=3,
-            label=f"seed node {seed}, " + r"$-\log_{10}\delta_{T,\gamma}(i)$"
+            label=r"seed node $i =$ "f"{seed}, " + r"$-\log_{10}\delta_{T,\gamma}(i)$"
         )
         plt.plot(
             Ts_plot,
             line,
             '--',
             linewidth=2,
-            label=f"seed node {seed}, theoretical asymptotic upper bound"
+            label=r"seed node $i = $"f"{seed}, theoretical asymptotic upper bound"
         )
 
     plt.xlabel(r"$T$")
@@ -287,53 +287,6 @@ if __name__ == "__main__":
     plt.title("Asymptotic Negative Log Survival with Tail Upper Envelope")
     plt.grid(True)
     plt.legend()
+    plt.savefig("./asymptotic_survival.png", bbox_inches='tight',dpi=400)
     plt.show()
-
-    # ============================================================
-    # PLOT 2: (1/T) (-log10 δ_T) vs T with UPPER horizontal bound
-    # ============================================================
-
-    plt.figure(figsize=(11, 7))
-
-    for seed in SEEDS:
-        deltas = results[seed]["deltas"][:last_common]
-        neglog_deltas = -np.log10(deltas)
-
-        normalized_curve = neglog_deltas / Ts_plot
-
-        kappa_v = seed_info[seed]["kappa_v"]
-        horiz_theory = kappa_v / np.log(10)
-
-        n = len(Ts_plot)
-        start_idx = int((1 - TAIL_FRACTION) * n)
-
-        tail_vals = normalized_curve[start_idx:]
-
-        # Choose a horizontal line ABOVE the empirical tail
-        horiz_adjusted = max(horiz_theory, np.max(tail_vals))
-
-        plt.plot(
-            Ts_plot,
-            normalized_curve,
-            '.',
-            markersize=3,
-            label=f"seed node={seed} " + r"$\frac{-\log_{10}\delta_{T,\gamma}(i)}{T}$"
-        )
-
-        plt.hlines(
-            horiz_adjusted,
-            xmin=Ts_plot[0],
-            xmax=Ts_plot[-1],
-            linestyles='--',
-            linewidth=2,
-            label=f"seed={seed} theoretical limit upper bound"
-        )
-
-    plt.xlabel(r"$T$")
-    plt.ylabel(r"$\frac{-\log_{10}\delta_{T,\gamma}(i)}{T}$")
-    plt.title("Convergence of Normalized Negative Log Survival to Theoretical Limit")
-    plt.grid(True)
-    plt.legend()
-    plt.show()
-
     print("\nDone.")
