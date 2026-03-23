@@ -1,3 +1,4 @@
+
 """
 Plotting Min-Cut Edges
 -----------------------------------------------------
@@ -285,7 +286,7 @@ for seed in SEEDS:
 
         legend_elements.append(
             Line2D([0], [0], color=seed_cut_colors[seed], linestyle='--',
-                   linewidth=2, label=f'Min Cut (Seed {seed})')
+                   linewidth=2, label=f'Constrained Min Cut (Seed {seed})')
         )
 
 ax1.legend(handles=legend_elements, loc='upper center', bbox_to_anchor=(0.5, -0.05), ncol=2)
@@ -297,4 +298,3 @@ plt.savefig("./topology.png", bbox_inches='tight',dpi=400)
 
 plt.tight_layout()
 plt.show()
-
